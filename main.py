@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-Teams離席状態（5分無操作での Away / Be right back）を防ぐキープアライブスクリプト。
+Teams Keep-Alive: prevents Away / Be right back after ~5 min inactivity.
 
-OS標準の入力としてマウスを1ピクセルだけ動かし、システムの「最後の入力時刻」を更新します。
-TeamsはWindowsのGetLastInputInfo等でアイドルを検知するため、これでアクティブと認識されます。
+Moves the mouse by 1 pixel (then back) so the system's "last input" time is updated.
+Teams uses Windows idle detection (e.g. GetLastInputInfo), so this keeps you active.
 
-停止: Ctrl+C
+Stop: Ctrl+C
 """
 
 import signal
@@ -16,13 +16,13 @@ from datetime import datetime
 try:
     from pynput.mouse import Controller as MouseController
 except ImportError:
-    print("エラー: pynput がインストールされていません。")
-    print("次のコマンドを実行してください: pip install -r requirements.txt")
+    print("Error: pynput is not installed.")
+    print("Run: pip install -r requirements.txt")
     sys.exit(1)
 
-# 設定（4分 = 5分の無操作になる前に1回実行）
+# Interval: 4 min (before Teams' ~5 min idle threshold)
 INTERVAL_SEC = 4 * 60
-# マウスを動かす量（1ピクセル。往復で元の位置に戻すためドリフトなし）
+# Mouse movement: 1 pixel there and back (no cursor drift)
 MOVE_PIXEL = 1
 
 
@@ -32,7 +32,7 @@ def log(msg: str) -> None:
 
 
 def keep_alive(mouse: MouseController) -> None:
-    """マウスを1px動かしてシステムの「最後の入力」を更新する。"""
+    """Move mouse 1px to update system 'last input' time."""
     mouse.move(MOVE_PIXEL, 0)
     time.sleep(0.05)
     mouse.move(-MOVE_PIXEL, 0)
@@ -40,8 +40,8 @@ def keep_alive(mouse: MouseController) -> None:
 
 def main() -> None:
     mouse = MouseController()
-    log("Teams キープアライブを開始しました（Ctrl+C で停止）")
-    log(f"間隔: {INTERVAL_SEC} 秒 ({INTERVAL_SEC // 60} 分)")
+    log("Teams Keep-Alive started (Ctrl+C to stop)")
+    log(f"Interval: {INTERVAL_SEC} sec ({INTERVAL_SEC // 60} min)")
 
     running = True
 
@@ -56,8 +56,8 @@ def main() -> None:
     try:
         while running:
             keep_alive(mouse)
-            log("キープアライブ送信（マウス 1px 移動）")
-            # 間隔まで1秒ずつスリープ（Ctrl+C で早めに抜けられる）
+            log("Keep-alive sent (mouse 1px move)")
+            # Sleep 1 sec at a time so Ctrl+C exits promptly
             for _ in range(INTERVAL_SEC):
                 if not running:
                     break
@@ -65,7 +65,7 @@ def main() -> None:
     except KeyboardInterrupt:
         pass
 
-    log("終了しました。")
+    log("Stopped.")
 
 
 if __name__ == "__main__":

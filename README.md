@@ -6,6 +6,19 @@ A small Windows tool that prevents Microsoft Teams from switching to **Away** (o
 
 ---
 
+## Quick start (recommended)
+
+**A pre-built .exe is included in this repository.** No Python or build step required.
+
+1. **Clone or download** this repository.
+2. Open the `dist` folder and run **TeamsKeepAlive.exe** (double-click or from a terminal).
+3. A console window opens. Every **4 minutes** you’ll see: `Keep-alive sent (mouse 1px move)`.
+4. To stop: press **Ctrl+C** or close the window.
+
+That’s it. Works on company PCs as long as running .exe files is allowed.
+
+---
+
 ## How it works (principle)
 
 - **Why Teams goes Away:** Teams uses Windows’ **system idle detection** (e.g. `GetLastInputInfo`) to decide if you are active. After roughly 5 minutes with no mouse or keyboard input, it marks you as Away.
@@ -22,18 +35,13 @@ A small Windows tool that prevents Microsoft Teams from switching to **Away** (o
 
 ---
 
-## How to use
+## Other ways to run
 
-### Option 1: Run the .exe (no Python needed) — recommended for most users
+### Get the .exe from Releases
 
-1. Get **TeamsKeepAlive.exe** (from [Releases](https://github.com/YOUR_USERNAME/SNS_status_active/releases) or from someone who built it).
-2. Put it in any folder. Double-click to run.
-3. A console window opens. Every **4 minutes** you’ll see a line like: `キープアライブ送信（マウス 1px 移動）` (or similar).
-4. To stop: press **Ctrl+C** in that window or close the window.
+If the maintainer publishes [Releases](https://github.com/YOUR_USERNAME/SNS_status_active/releases), you can download **TeamsKeepAlive.exe** from there and run it without cloning the full repo.
 
-No installation or Python required. Works on company PCs as long as running .exe files is allowed.
-
-### Option 2: Run the Python script (if you have Python)
+### Run the Python script (if you have Python)
 
 1. Install dependencies:
    ```bash
@@ -45,18 +53,12 @@ No installation or Python required. Works on company PCs as long as running .exe
    ```
 3. Stop with **Ctrl+C**.
 
-### Option 3: Build the .exe from source (for distributors or if you want to verify the binary)
+### Build the .exe from source (for distributors or to verify the binary)
 
 You need **Python 3.7+** on your machine.
 
-**Quick build (Windows):**
-
-- Double-click **build.bat**, or in PowerShell run:
-  ```powershell
-  .\build.ps1
-  ```
-- If PowerShell blocks the script, run once:  
-  `Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned`
+**Quick build (Windows):** Double-click **build.bat**, or in PowerShell run `.\build.ps1`.  
+If PowerShell blocks the script, run once: `Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned`
 
 **Manual build:**
 
@@ -84,13 +86,13 @@ Then run the script again, or rebuild the .exe with the steps above.
 ## Example output
 
 ```
-[2025-02-22 10:00:00] Teams キープアライブを開始しました（Ctrl+C で停止）
-[2025-02-22 10:00:00] 間隔: 240 秒 (4 分)
-[2025-02-22 10:00:00] キープアライブ送信（マウス 1px 移動）
-[2025-02-22 10:04:00] キープアライブ送信（マウス 1px 移動）
+[2025-02-22 10:00:00] Teams Keep-Alive started (Ctrl+C to stop)
+[2025-02-22 10:00:00] Interval: 240 sec (4 min)
+[2025-02-22 10:00:00] Keep-alive sent (mouse 1px move)
+[2025-02-22 10:04:00] Keep-alive sent (mouse 1px move)
 ...
 ^C
-[2025-02-22 10:05:30] 終了しました。
+[2025-02-22 10:05:30] Stopped.
 ```
 
 ---
@@ -107,12 +109,17 @@ Then run the script again, or rebuild the .exe with the steps above.
 | File | Description |
 |------|-------------|
 | `main.py` | Main script (single file to run) |
+| `dist\TeamsKeepAlive.exe` | Pre-built executable (ready to run) |
 | `requirements.txt` | Runtime dependency (pynput) |
 | `requirements-build.txt` | Build dependency (PyInstaller) |
 | `TeamsKeepAlive.spec` | PyInstaller spec for single .exe |
 | `build.bat` | Build .exe (batch) |
 | `build.ps1` | Build .exe (PowerShell) |
 
-Distribute only **`dist\TeamsKeepAlive.exe`** to end users if you build it yourself.
+---
+
+## License
+
+This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for the full text.
 
 > **Note for repo owners:** Replace `YOUR_USERNAME` in the Releases link with your GitHub username (or your org name) so the link points to your repository’s Releases page.

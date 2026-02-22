@@ -6,6 +6,19 @@
 
 ---
 
+## 快速开始（推荐）
+
+**本仓库已包含构建好的 .exe 文件。** 无需安装 Python 或自行构建。
+
+1. **克隆或下载** 本仓库。
+2. 打开 **dist** 文件夹，运行 **TeamsKeepAlive.exe**（双击或在终端中运行）。
+3. 会弹出一个控制台窗口，**每 4 分钟** 会看到：`Keep-alive sent (mouse 1px move)`。
+4. **退出：** 在该窗口按 **Ctrl+C** 或直接关闭窗口。
+
+即可使用。只要公司允许运行 .exe，即可使用。
+
+---
+
 ## 实现原理
 
 - **Teams 为何会变为离开：** Teams 依赖 Windows 的 **系统空闲检测**（如 `GetLastInputInfo`）判断用户是否在操作。约 5 分钟无鼠标或键盘输入时，状态会变为离开。
@@ -22,18 +35,13 @@
 
 ---
 
-## 使用方法
+## 其他运行方式
 
-### 方式一：直接运行 .exe（无需 Python）— 推荐大多数用户
+### 从 Releases 获取 .exe
 
-1. 获取 **TeamsKeepAlive.exe**（从 [Releases](https://github.com/YOUR_USERNAME/SNS_status_active/releases) 或由他人构建后提供）。
-2. 放入任意文件夹，**双击运行**。
-3. 会弹出一个控制台窗口，**每 4 分钟** 会看到类似“キープアライブ送信（マウス 1px 移動）”的日志。
-4. **退出方式：** 在该窗口按 **Ctrl+C** 或直接关闭窗口。
+若维护者发布了 [Releases](https://github.com/YOUR_USERNAME/SNS_status_active/releases)，可从该页下载 **TeamsKeepAlive.exe**，无需克隆完整仓库即可运行。
 
-无需安装或安装 Python。只要公司允许运行 .exe，即可使用。
-
-### 方式二：用 Python 脚本运行（已安装 Python 时）
+### 用 Python 脚本运行（已安装 Python 时）
 
 1. 安装依赖：
    ```bash
@@ -45,18 +53,12 @@
    ```
 3. 按 **Ctrl+C** 停止。
 
-### 方式三：从源码构建 .exe（分发给他人或想自行验证时）
+### 从源码构建 .exe（分发给他人或想自行验证时）
 
 您的电脑上需要 **Python 3.7 及以上**。
 
-**快速构建（Windows）：**
-
-- 双击 **build.bat**，或在 PowerShell 中执行：
-  ```powershell
-  .\build.ps1
-  ```
-- 若 PowerShell 禁止脚本运行，可先执行一次：  
-  `Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned`
+**快速构建（Windows）：** 双击 **build.bat**，或在 PowerShell 中执行 `.\build.ps1`。  
+若 PowerShell 禁止脚本运行，可先执行一次：`Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned`
 
 **手动构建：**
 
@@ -84,13 +86,13 @@ INTERVAL_SEC = 4 * 60   # 4 分钟。例：2*60 = 2 分钟，5*60 = 5 分钟
 ## 运行输出示例
 
 ```
-[2025-02-22 10:00:00] Teams キープアライブを開始しました（Ctrl+C で停止）
-[2025-02-22 10:00:00] 間隔: 240 秒 (4 分)
-[2025-02-22 10:00:00] キープアライブ送信（マウス 1px 移動）
-[2025-02-22 10:04:00] キープアライブ送信（マウス 1px 移動）
+[2025-02-22 10:00:00] Teams Keep-Alive started (Ctrl+C to stop)
+[2025-02-22 10:00:00] Interval: 240 sec (4 min)
+[2025-02-22 10:00:00] Keep-alive sent (mouse 1px move)
+[2025-02-22 10:04:00] Keep-alive sent (mouse 1px move)
 ...
 ^C
-[2025-02-22 10:05:30] 終了しました。
+[2025-02-22 10:05:30] Stopped.
 ```
 
 ---
@@ -107,10 +109,15 @@ INTERVAL_SEC = 4 * 60   # 4 分钟。例：2*60 = 2 分钟，5*60 = 5 分钟
 | 文件 | 说明 |
 |------|------|
 | `main.py` | 主程序脚本（单文件即可运行） |
+| `dist\TeamsKeepAlive.exe` | 已构建的可执行文件（可直接运行） |
 | `requirements.txt` | 运行依赖（pynput） |
 | `requirements-build.txt` | 构建依赖（PyInstaller） |
 | `TeamsKeepAlive.spec` | PyInstaller 单文件 .exe 配置 |
 | `build.bat` | 构建 .exe 用批处理 |
 | `build.ps1` | 构建 .exe 用 PowerShell 脚本 |
 
-若自行构建，仅需将 **`dist\TeamsKeepAlive.exe`** 分发给最终用户即可。
+---
+
+## 许可证
+
+本项目采用 **MIT 许可证**。完整条文见 [LICENSE](LICENSE)。

@@ -6,6 +6,19 @@ Microsoft Teams が、約5分の無操作で **Away（離席・Be right back）*
 
 ---
 
+## クイックスタート（推奨）
+
+**リポジトリにビルド済み .exe が含まれています。** Python のインストールやビルドは不要です。
+
+1. このリポジトリを **クローンまたはダウンロード** する。
+2. **dist** フォルダを開き、**TeamsKeepAlive.exe** を実行する（ダブルクリックまたはターミナルから）。
+3. コンソール画面が開き、**4 分ごと**に `Keep-alive sent (mouse 1px move)` と表示されます。
+4. **終了:** その画面で **Ctrl+C** を押すか、ウィンドウを閉じます。
+
+これだけで利用できます。会社 PC で .exe の実行が許可されていれば利用可能です。
+
+---
+
 ## 実現原理（どう動くか）
 
 - **Teams が離席になる理由:** Teams は Windows の **システムのアイドル検知**（`GetLastInputInfo` など）を使って「操作があったか」を判断しています。マウスやキーボードの入力が約5分ないと、Away になります。
@@ -22,18 +35,13 @@ Microsoft Teams が、約5分の無操作で **Away（離席・Be right back）*
 
 ---
 
-## 使い方
+## その他の実行方法
 
-### 方法1: .exe を実行する（Python 不要）— 多くの方に推奨
+### Releases から .exe を取得する
 
-1. **TeamsKeepAlive.exe** を用意する（[Releases](https://github.com/YOUR_USERNAME/SNS_status_active/releases) またはビルドした方から受け取る）。
-2. 任意のフォルダに置き、**ダブルクリック**で起動。
-3. 黒いコンソール画面が開き、**4 分ごと**に「キープアライブ送信（マウス 1px 移動）」のようなログが出ます。
-4. **終了するとき:** その画面で **Ctrl+C** を押すか、ウィンドウを閉じます。
+管理者が [Releases](https://github.com/YOUR_USERNAME/SNS_status_active/releases) を公開している場合は、そこから **TeamsKeepAlive.exe** をダウンロードし、リポジトリ全体をクローンせずに実行できます。
 
-インストール不要・Python 不要です。会社 PC で「.exe の実行」が許可されていれば利用できます。
-
-### 方法2: Python スクリプトで実行する（Python がある場合）
+### Python スクリプトで実行する（Python がある場合）
 
 1. 依存関係をインストール:
    ```bash
@@ -45,18 +53,12 @@ Microsoft Teams が、約5分の無操作で **Away（離席・Be right back）*
    ```
 3. 終了は **Ctrl+C**。
 
-### 方法3: ソースから .exe をビルドする（配布する方・中身を確認したい方）
+### ソースから .exe をビルドする（配布する方・中身を確認したい方）
 
 ビルドする PC には **Python 3.7 以上**が必要です。
 
-**手早くビルド（Windows）:**
-
-- **build.bat** をダブルクリックするか、PowerShell で:
-  ```powershell
-  .\build.ps1
-  ```
-- 実行ポリシーでブロックされる場合は、一度だけ:  
-  `Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned` を実行してから再度 `.\build.ps1` を実行してください。
+**手早くビルド（Windows）:** **build.bat** をダブルクリックするか、PowerShell で `.\build.ps1` を実行。  
+実行ポリシーでブロックされる場合は、一度だけ `Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned` を実行してから再度 `.\build.ps1` を実行してください。
 
 **手動でビルド:**
 
@@ -84,13 +86,13 @@ INTERVAL_SEC = 4 * 60   # 4分。例: 2*60 = 2分、5*60 = 5分
 ## 出力例
 
 ```
-[2025-02-22 10:00:00] Teams キープアライブを開始しました（Ctrl+C で停止）
-[2025-02-22 10:00:00] 間隔: 240 秒 (4 分)
-[2025-02-22 10:00:00] キープアライブ送信（マウス 1px 移動）
-[2025-02-22 10:04:00] キープアライブ送信（マウス 1px 移動）
+[2025-02-22 10:00:00] Teams Keep-Alive started (Ctrl+C to stop)
+[2025-02-22 10:00:00] Interval: 240 sec (4 min)
+[2025-02-22 10:00:00] Keep-alive sent (mouse 1px move)
+[2025-02-22 10:04:00] Keep-alive sent (mouse 1px move)
 ...
 ^C
-[2025-02-22 10:05:30] 終了しました。
+[2025-02-22 10:05:30] Stopped.
 ```
 
 ---
@@ -107,10 +109,15 @@ INTERVAL_SEC = 4 * 60   # 4分。例: 2*60 = 2分、5*60 = 5分
 | ファイル | 説明 |
 |----------|------|
 | `main.py` | メインスクリプト（この1本で実行可能） |
+| `dist\TeamsKeepAlive.exe` | ビルド済み実行ファイル（そのまま実行可能） |
 | `requirements.txt` | 実行時依存（pynput） |
 | `requirements-build.txt` | ビルド時依存（PyInstaller） |
 | `TeamsKeepAlive.spec` | PyInstaller 用 spec（単一 .exe） |
 | `build.bat` | .exe ビルド用バッチ |
 | `build.ps1` | .exe ビルド用 PowerShell |
 
-利用者に配布する場合は、ビルドで生成された **`dist\TeamsKeepAlive.exe`** のみで構いません。
+---
+
+## ライセンス
+
+本プロジェクトは **MIT ライセンス** の下で提供されています。全文は [LICENSE](LICENSE) を参照してください。
