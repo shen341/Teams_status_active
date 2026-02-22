@@ -12,10 +12,10 @@
 
 ## 빠른 시작 (권장)
 
-**이 리포지토리에는 이미 빌드된 .exe가 포함되어 있습니다.** Python 설치나 빌드 과정이 필요 없습니다.
+**이 리포지토리에는 빌드된 실행 파일이 포함되어 있습니다(Windows용).** Windows에서는 Python이 필요 없습니다. **macOS**에서는 `python3 main.py`로 실행하거나, Mac에서 `./build.sh`로 macOS용 바이너리를 빌드하세요(「macOS용 빌드」 참고).
 
 1. 이 리포지토리를 **클론 또는 다운로드**합니다.
-2. **dist** 폴더를 열고 **TeamsKeepAlive.exe**를 실행합니다(더블클릭 또는 터미널에서).
+2. **Windows:** **dist** 폴더에서 **TeamsKeepAlive.exe** 실행(더블클릭 또는 터미널). **macOS:** 위 참고.
 3. 콘솔 창이 열리고 **4분마다** `Keep-alive sent (mouse 1px move)` 가 출력됩니다.
 4. **종료:** 해당 창에서 **Ctrl+C**를 누르거나 창을 닫습니다.
 
@@ -73,6 +73,26 @@ python -m PyInstaller --clean --noconfirm TeamsKeepAlive.spec
 
 생성된 .exe는 **`dist\TeamsKeepAlive.exe`** 입니다. 이 파일만 다른 사용자에게 배포해도 됩니다.
 
+### macOS용 빌드 (Mac에서 실행)
+
+macOS용 바이너리는 **Mac에서 빌드**해야 합니다. PyInstaller는 실행한 OS에 맞는 바이너리를 만듭니다.
+
+**간단 빌드:**
+
+```bash
+chmod +x build.sh
+./build.sh
+```
+
+**수동 빌드:**
+
+```bash
+pip install -r requirements.txt -r requirements-build.txt
+python3 -m PyInstaller --clean --noconfirm TeamsKeepAlive.mac.spec
+```
+
+출력은 **`dist/TeamsKeepAlive`** (확장자 없음)입니다. `./dist/TeamsKeepAlive`로 실행합니다. 이 한 파일만 macOS 사용자에게 배포하면 됩니다(Python 불필요).
+
 ---
 
 ## 간격 변경
@@ -118,7 +138,9 @@ INTERVAL_SEC = 4 * 60   # 4분. 예: 2*60 = 2분, 5*60 = 5분
 | `requirements-build.txt` | 빌드 시 의존성 (PyInstaller) |
 | `TeamsKeepAlive.spec` | PyInstaller 단일 .exe 설정 |
 | `build.bat` | .exe 빌드용 배치 |
-| `build.ps1` | .exe 빌드용 PowerShell |
+| `build.ps1` | Windows .exe 빌드용 PowerShell |
+| `build.sh` | macOS 빌드 (Mac에서 실행) |
+| `TeamsKeepAlive.mac.spec` | PyInstaller spec (macOS) |
 
 ---
 

@@ -12,14 +12,14 @@ For the young-at-work generation: a little **guardian** for your presence, a bit
 
 ## Quick start (recommended)
 
-**A pre-built .exe is included in this repository.** No Python or build step required.
+**A pre-built executable is included in this repository.** No Python or build step required.
 
-1. **Clone or download** this repository.
-2. Open the `dist` folder and run **TeamsKeepAlive.exe** (double-click or from a terminal).
+- **Windows:** Open the `dist` folder and run **TeamsKeepAlive.exe** (double-click or from a terminal).
+- **macOS:** The repo contains a Windows .exe only. On a Mac, either run `python3 main.py` (see “Run the Python script” below) or build a Mac binary on a Mac with `./build.sh` (see “Build for macOS”).
 3. A console window opens. Every **4 minutes** you’ll see: `Keep-alive sent (mouse 1px move)`.
-4. To stop: press **Ctrl+C** or close the window.
+4. To stop: press **Ctrl+C** (or **Ctrl+C** in Terminal on Mac) or close the window.
 
-That’s it. Works on company PCs as long as running .exe files is allowed.
+That’s it. On Windows, works as long as running .exe files is allowed.
 
 ---
 
@@ -73,6 +73,26 @@ python -m PyInstaller --clean --noconfirm TeamsKeepAlive.spec
 
 The built .exe is in **`dist\TeamsKeepAlive.exe`**. You can share only this file with others.
 
+### Build for macOS (on a Mac)
+
+You must run the build **on a Mac**; PyInstaller produces a native binary for the system where it runs.
+
+**Quick build:**
+
+```bash
+chmod +x build.sh
+./build.sh
+```
+
+**Manual build:**
+
+```bash
+pip install -r requirements.txt -r requirements-build.txt
+python3 -m PyInstaller --clean --noconfirm TeamsKeepAlive.mac.spec
+```
+
+The output is **`dist/TeamsKeepAlive`** (no file extension). Run it with `./dist/TeamsKeepAlive`. You can share this single file with macOS users; they do not need Python installed.
+
 ---
 
 ## Change the interval
@@ -117,8 +137,10 @@ Then run the script again, or rebuild the .exe with the steps above.
 | `requirements.txt` | Runtime dependency (pynput) |
 | `requirements-build.txt` | Build dependency (PyInstaller) |
 | `TeamsKeepAlive.spec` | PyInstaller spec for single .exe |
-| `build.bat` | Build .exe (batch) |
-| `build.ps1` | Build .exe (PowerShell) |
+| `build.bat` | Build for Windows (batch) |
+| `build.ps1` | Build for Windows (PowerShell) |
+| `build.sh` | Build for macOS (run on a Mac) |
+| `TeamsKeepAlive.mac.spec` | PyInstaller spec for macOS |
 
 ---
 

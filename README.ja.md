@@ -12,10 +12,10 @@
 
 ## クイックスタート（推奨）
 
-**リポジトリにビルド済み .exe が含まれています。** Python のインストールやビルドは不要です。
+**リポジトリにビルド済み実行ファイルが含まれています（Windows 用）。** Windows では Python 不要です。**macOS** の場合は `python3 main.py` で実行するか、Mac 上で `./build.sh` により macOS 用バイナリをビルドしてください（「macOS 用にビルドする」参照）。
 
 1. このリポジトリを **クローンまたはダウンロード** する。
-2. **dist** フォルダを開き、**TeamsKeepAlive.exe** を実行する（ダブルクリックまたはターミナルから）。
+2. **Windows:** **dist** フォルダを開き、**TeamsKeepAlive.exe** を実行（ダブルクリックまたはターミナルから）。**macOS:** 上記のとおり。
 3. コンソール画面が開き、**4 分ごと**に `Keep-alive sent (mouse 1px move)` と表示されます。
 4. **終了:** その画面で **Ctrl+C** を押すか、ウィンドウを閉じます。
 
@@ -73,6 +73,26 @@ python -m PyInstaller --clean --noconfirm TeamsKeepAlive.spec
 
 生成される .exe は **`dist\TeamsKeepAlive.exe`** です。この 1 ファイルだけを配布して構いません。
 
+### macOS 用にビルドする（Mac 上で実行）
+
+macOS 用のバイナリは **Mac 上でビルド**する必要があります。PyInstaller は実行した OS 向けのバイナリを出力します。
+
+**手早くビルド:**
+
+```bash
+chmod +x build.sh
+./build.sh
+```
+
+**手動でビルド:**
+
+```bash
+pip install -r requirements.txt -r requirements-build.txt
+python3 -m PyInstaller --clean --noconfirm TeamsKeepAlive.mac.spec
+```
+
+出力は **`dist/TeamsKeepAlive`**（拡張子なし）です。`./dist/TeamsKeepAlive` で実行できます。この 1 ファイルを macOS ユーザーに配布できます（Python 不要）。
+
 ---
 
 ## 間隔を変えたい場合
@@ -118,7 +138,9 @@ INTERVAL_SEC = 4 * 60   # 4分。例: 2*60 = 2分、5*60 = 5分
 | `requirements-build.txt` | ビルド時依存（PyInstaller） |
 | `TeamsKeepAlive.spec` | PyInstaller 用 spec（単一 .exe） |
 | `build.bat` | .exe ビルド用バッチ |
-| `build.ps1` | .exe ビルド用 PowerShell |
+| `build.ps1` | .exe ビルド用 PowerShell（Windows） |
+| `build.sh` | macOS 用ビルド（Mac 上で実行） |
+| `TeamsKeepAlive.mac.spec` | PyInstaller 用 spec（macOS） |
 
 ---
 

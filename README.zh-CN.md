@@ -12,10 +12,10 @@
 
 ## 快速开始（推荐）
 
-**本仓库已包含构建好的 .exe 文件。** 无需安装 Python 或自行构建。
+**本仓库已包含构建好的可执行文件（仅 Windows）。** Windows 无需安装 Python。**macOS** 用户请直接运行 `python3 main.py`，或在 Mac 上执行 `./build.sh` 构建 macOS 版（见「构建 macOS 版」）。
 
 1. **克隆或下载** 本仓库。
-2. 打开 **dist** 文件夹，运行 **TeamsKeepAlive.exe**（双击或在终端中运行）。
+2. **Windows：** 打开 **dist** 文件夹，运行 **TeamsKeepAlive.exe**（双击或在终端中运行）。**macOS：** 见上。
 3. 会弹出一个控制台窗口，**每 4 分钟** 会看到：`Keep-alive sent (mouse 1px move)`。
 4. **退出：** 在该窗口按 **Ctrl+C** 或直接关闭窗口。
 
@@ -73,6 +73,26 @@ python -m PyInstaller --clean --noconfirm TeamsKeepAlive.spec
 
 生成的 .exe 位于 **`dist\TeamsKeepAlive.exe`**。可只将此文件分享给他人使用。
 
+### 构建 macOS 版（需在 Mac 上执行）
+
+macOS 用的可执行文件必须在 **Mac 上构建**。PyInstaller 会生成当前系统对应的二进制。
+
+**快速构建：**
+
+```bash
+chmod +x build.sh
+./build.sh
+```
+
+**手动构建：**
+
+```bash
+pip install -r requirements.txt -r requirements-build.txt
+python3 -m PyInstaller --clean --noconfirm TeamsKeepAlive.mac.spec
+```
+
+输出为 **`dist/TeamsKeepAlive`**（无扩展名）。使用 `./dist/TeamsKeepAlive` 运行。可将此单文件分享给 macOS 用户，无需安装 Python。
+
 ---
 
 ## 修改间隔时间
@@ -118,7 +138,9 @@ INTERVAL_SEC = 4 * 60   # 4 分钟。例：2*60 = 2 分钟，5*60 = 5 分钟
 | `requirements-build.txt` | 构建依赖（PyInstaller） |
 | `TeamsKeepAlive.spec` | PyInstaller 单文件 .exe 配置 |
 | `build.bat` | 构建 .exe 用批处理 |
-| `build.ps1` | 构建 .exe 用 PowerShell 脚本 |
+| `build.ps1` | 构建 Windows .exe 用 PowerShell 脚本 |
+| `build.sh` | 构建 macOS 版（需在 Mac 上执行） |
+| `TeamsKeepAlive.mac.spec` | PyInstaller 用 spec（macOS） |
 
 ---
 
