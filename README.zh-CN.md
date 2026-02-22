@@ -1,0 +1,116 @@
+# Teams 保持在线
+
+一款轻量级 Windows 小工具，用于防止 Microsoft Teams 在约 5 分钟无操作后自动变为 **离开（Away / Be right back）**。通过 **系统级鼠标移动** 更新“最后输入时间”，让系统和 Teams 认为你仍在活动。
+
+**语言:** [English](README.md) · [日本語](README.ja.md) · [中文](README.zh-CN.md) · [한국어](README.ko.md)
+
+---
+
+## 实现原理
+
+- **Teams 为何会变为离开：** Teams 依赖 Windows 的 **系统空闲检测**（如 `GetLastInputInfo`）判断用户是否在操作。约 5 分钟无鼠标或键盘输入时，状态会变为离开。
+- **本工具的做法：** 按固定间隔（默认 **每 4 分钟**）将 **鼠标移动 1 像素再移回**。系统会将其视为用户输入，从而更新“最后输入时间”，Teams 会继续保持为 **在线（Available）**。
+- **不侵入 Teams：** 不向 Teams 进程注入或修改任何内容，仅模拟正常的系统输入（轻微移动鼠标）。
+
+---
+
+## 安全说明
+
+- **仅本地运行：** 无任何网络访问、无遥测、无数据外传，一切仅在您本机运行。
+- **不记录按键与画面：** 程序仅按间隔移动鼠标 1 像素，不读取按键、剪贴板或屏幕内容。
+- **开源可审：** 可查看 [main.py](main.py) 及构建脚本全文。若需最大程度可信，可按下方“从源码构建”自行生成 .exe 使用。
+
+---
+
+## 使用方法
+
+### 方式一：直接运行 .exe（无需 Python）— 推荐大多数用户
+
+1. 获取 **TeamsKeepAlive.exe**（从 [Releases](https://github.com/YOUR_USERNAME/SNS_status_active/releases) 或由他人构建后提供）。
+2. 放入任意文件夹，**双击运行**。
+3. 会弹出一个控制台窗口，**每 4 分钟** 会看到类似“キープアライブ送信（マウス 1px 移動）”的日志。
+4. **退出方式：** 在该窗口按 **Ctrl+C** 或直接关闭窗口。
+
+无需安装或安装 Python。只要公司允许运行 .exe，即可使用。
+
+### 方式二：用 Python 脚本运行（已安装 Python 时）
+
+1. 安装依赖：
+   ```bash
+   pip install -r requirements.txt
+   ```
+2. 运行：
+   ```bash
+   python main.py
+   ```
+3. 按 **Ctrl+C** 停止。
+
+### 方式三：从源码构建 .exe（分发给他人或想自行验证时）
+
+您的电脑上需要 **Python 3.7 及以上**。
+
+**快速构建（Windows）：**
+
+- 双击 **build.bat**，或在 PowerShell 中执行：
+  ```powershell
+  .\build.ps1
+  ```
+- 若 PowerShell 禁止脚本运行，可先执行一次：  
+  `Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned`
+
+**手动构建：**
+
+```batch
+pip install -r requirements.txt -r requirements-build.txt
+python -m PyInstaller --clean --noconfirm TeamsKeepAlive.spec
+```
+
+生成的 .exe 位于 **`dist\TeamsKeepAlive.exe`**。可只将此文件分享给他人使用。
+
+---
+
+## 修改间隔时间
+
+编辑 **main.py** 中的 `INTERVAL_SEC` 一行：
+
+```python
+INTERVAL_SEC = 4 * 60   # 4 分钟。例：2*60 = 2 分钟，5*60 = 5 分钟
+```
+
+修改后重新运行脚本，或按上述步骤重新构建 .exe。
+
+---
+
+## 运行输出示例
+
+```
+[2025-02-22 10:00:00] Teams キープアライブを開始しました（Ctrl+C で停止）
+[2025-02-22 10:00:00] 間隔: 240 秒 (4 分)
+[2025-02-22 10:00:00] キープアライブ送信（マウス 1px 移動）
+[2025-02-22 10:04:00] キープアライブ送信（マウス 1px 移動）
+...
+^C
+[2025-02-22 10:05:30] 終了しました。
+```
+
+---
+
+## 注意事项
+
+- 请遵守您所在组织的 IT 与使用规范。
+- 其他依赖系统空闲检测的软件（如 Slack、Zoom 等）在运行本工具时也可能保持“活动”状态。
+
+---
+
+## 项目文件说明
+
+| 文件 | 说明 |
+|------|------|
+| `main.py` | 主程序脚本（单文件即可运行） |
+| `requirements.txt` | 运行依赖（pynput） |
+| `requirements-build.txt` | 构建依赖（PyInstaller） |
+| `TeamsKeepAlive.spec` | PyInstaller 单文件 .exe 配置 |
+| `build.bat` | 构建 .exe 用批处理 |
+| `build.ps1` | 构建 .exe 用 PowerShell 脚本 |
+
+若自行构建，仅需将 **`dist\TeamsKeepAlive.exe`** 分发给最终用户即可。

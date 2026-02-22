@@ -1,0 +1,3 @@
+# Teams離席防止用キープアライブスクリプト
+# インストール: pip install -r requirements.txt
+pynput>=1.7.6
