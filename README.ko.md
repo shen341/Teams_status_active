@@ -1,8 +1,12 @@
-# Teams Keep-Alive (팀즈 자리 비움 방지)
+# 绿灯侠 (녹등협 · 초록불 히어로)
 
-Microsoft Teams가 약 5분 동안 무작동 시 **자리 비움(Away / Be right back)** 으로 바뀌는 것을 막는 경량 Windows 도구입니다. **OS 수준의 마우스 이동**으로 "마지막 입력"을 갱신하여 Teams가 사용자를 계속 활성으로 인식하게 합니다.
+**상태 등이 계속 초록색이도록.** Microsoft Teams가 5분만 무작동해도 **자리 비움(Away / Be right back)** 으로 바뀌는 걸 막는 경량 Windows 도구입니다.
+
+젊은 직장인을 위한 **작은 수호자**. 가볍고, 재밌고, **과한 내전은 거부**. 당신의 초록불, 당신이 정해요.
 
 **언어:** [English](README.md) · [日本語](README.ja.md) · [中文](README.zh-CN.md) · [한국어](README.ko.md)
+
+> **왜 「绿灯侠」?** “초록불을 지켜 주는 히어로.” 상태 등이 초록색으로 남아 있게 해서, 과한 ‘보여주기 출근’ 없이 일할 수 있게 해 주는 작은 도우미예요.
 
 ---
 
@@ -39,7 +43,7 @@ Microsoft Teams가 약 5분 동안 무작동 시 **자리 비움(Away / Be right
 
 ### Releases에서 .exe 받기
 
-관리자가 [Releases](https://github.com/YOUR_USERNAME/SNS_status_active/releases)를 올려 두었다면, 여기서 **TeamsKeepAlive.exe**만 받아 전체 리포지토리 클론 없이 실행할 수 있습니다.
+관리자가 [Releases](https://github.com/shen341/Teams_status_active/releases)를 올려 두었다면, 여기서 **TeamsKeepAlive.exe**만 받아 전체 리포지토리 클론 없이 실행할 수 있습니다.
 
 ### Python 스크립트로 실행 (Python이 있는 경우)
 
@@ -115,6 +119,26 @@ INTERVAL_SEC = 4 * 60   # 4분. 예: 2*60 = 2분, 5*60 = 5분
 | `TeamsKeepAlive.spec` | PyInstaller 단일 .exe 설정 |
 | `build.bat` | .exe 빌드용 배치 |
 | `build.ps1` | .exe 빌드용 PowerShell |
+
+---
+
+## GitHub Release 만들기 (관리자)
+
+Releases 페이지에서 404가 나오면 아직 릴리스가 없는 상태입니다. 아래 순서대로 **TeamsKeepAlive.exe**를 GitHub Releases에 올리면, 사용자가 저장소를 클론하지 않고도 다운로드할 수 있습니다.
+
+1. **저장소 준비**  
+   저장소 URL: **https://github.com/shen341/Teams_status_active**. 이름이 아직 `SNS_status_active`이면 **Settings → General → Repository name**에서 `Teams_status_active`로 변경 후 **Rename**. `dist\TeamsKeepAlive.exe`를 커밋해 두거나, 4단계에서 직접 업로드합니다.
+
+2. **Releases 열기**  
+   저장소 페이지에서 **Releases** 클릭, 또는 **https://github.com/shen341/Teams_status_active/releases** 접속 후 **Create a new release** 클릭.
+
+3. **릴리스 정보 입력**  
+   **Choose a tag**에서 버전(예: `v1.0.0`) 입력 후 **Create new tag: v1.0.0 on publish** 선택. **Release title** 예: `v1.0.0 - 绿灯侠`. **Description**에 간단한 설명과 README 링크 작성.
+
+4. **.exe 첨부 후 배포**  
+   **Attach binaries**에 로컬 **dist\TeamsKeepAlive.exe**를 끌어다 놓거나 선택. **Set as the latest release** 체크(첫 릴리스인 경우) 후 **Publish release** 클릭.
+
+이후 **https://github.com/shen341/Teams_status_active/releases**에서 릴리스가 보이고, 사용자가 여기서 .exe를 받을 수 있습니다. 수정 시 해당 릴리스 → **Edit**에서 새 .exe를 올리거나 설명을 수정한 뒤 **Update release**하면 됩니다. 자세한 단계는 [README.md](README.md#creating-a-github-release-for-maintainers) 참고.
 
 ---
 

@@ -1,8 +1,12 @@
-# Teams 保持在线
+# 绿灯侠
 
-一款轻量级 Windows 小工具，用于防止 Microsoft Teams 在约 5 分钟无操作后自动变为 **离开（Away / Be right back）**。通过 **系统级鼠标移动** 更新“最后输入时间”，让系统和 Teams 认为你仍在活动。
+**让状态栏永远亮着那盏绿灯。** 一款轻量级 Windows 小工具，防止 Microsoft Teams 在约 5 分钟无操作后自动变成 **离开（Away / Be right back）**——少一点「摸鱼焦虑」，多一点自在。
+
+为年轻职场人准备的**小守护**：带点**趣味**，**反内卷**。你的绿灯，你做主。
 
 **语言:** [English](README.md) · [日本語](README.ja.md) · [中文](README.zh-CN.md) · [한국어](README.ko.md)
+
+> **为啥叫「绿灯侠」？** 状态栏那盏绿灯，帮你守着——不用表演「一直在」，需要的时候轻轻推一把就行。打工人的小默契，懂的都懂。
 
 ---
 
@@ -39,7 +43,7 @@
 
 ### 从 Releases 获取 .exe
 
-若维护者发布了 [Releases](https://github.com/YOUR_USERNAME/SNS_status_active/releases)，可从该页下载 **TeamsKeepAlive.exe**，无需克隆完整仓库即可运行。
+若维护者发布了 [Releases](https://github.com/shen341/Teams_status_active/releases)，可从该页下载 **TeamsKeepAlive.exe**，无需克隆完整仓库即可运行。
 
 ### 用 Python 脚本运行（已安装 Python 时）
 
@@ -115,6 +119,26 @@ INTERVAL_SEC = 4 * 60   # 4 分钟。例：2*60 = 2 分钟，5*60 = 5 分钟
 | `TeamsKeepAlive.spec` | PyInstaller 单文件 .exe 配置 |
 | `build.bat` | 构建 .exe 用批处理 |
 | `build.ps1` | 构建 .exe 用 PowerShell 脚本 |
+
+---
+
+## 创建 GitHub Release（维护者）
+
+若访问 Releases 页面出现 404，说明尚未创建发布。按以下步骤在 GitHub Releases 上发布 **TeamsKeepAlive.exe**，供用户直接下载而无需克隆仓库。
+
+1. **准备仓库**  
+   仓库地址：**https://github.com/shen341/Teams_status_active**。若仓库名仍是 `SNS_status_active`，请在 **Settings → General → Repository name** 中改为 `Teams_status_active` 并 **Rename**。可将 `dist\TeamsKeepAlive.exe` 提交到仓库，或在步骤 4 中上传。
+
+2. **打开 Releases**  
+   在仓库页点击右侧 **Releases**，或访问：**https://github.com/shen341/Teams_status_active/releases**，再点击 **Create a new release**。
+
+3. **填写发布信息**  
+   **Choose a tag** 中输入版本号（如 `v1.0.0`），选择 **Create new tag: v1.0.0 on publish**。**Release title** 可填如：`v1.0.0 - 绿灯侠`。**Description** 中可写简短说明并附 README 链接。
+
+4. **上传 .exe 并发布**  
+   在 **Attach binaries** 中拖入或选择本地的 **dist\TeamsKeepAlive.exe**，勾选 **Set as the latest release**（首次发布），点击 **Publish release**。
+
+完成后，**https://github.com/shen341/Teams_status_active/releases** 会显示该发布，用户可在此下载 .exe。更新时进入该发布 → **Edit**，上传新 .exe 或修改说明后 **Update release**。详细步骤见 [README.md](README.md#creating-a-github-release-for-maintainers)。
 
 ---
 

@@ -1,8 +1,12 @@
-# Teams Keep-Alive
+# 绿灯侠 · Green Light Hero
 
-A small Windows tool that prevents Microsoft Teams from switching to **Away** (or "Be right back") after about 5 minutes of inactivity. It uses **OS-level mouse movement** so the system—and Teams—thinks you are still active.
+**Keep your status green.** A small Windows tool that stops Microsoft Teams from flipping to **Away** after ~5 minutes of inactivity—so you can step away without the “Be right back” guilt.
+
+For the young-at-work generation: a little **guardian** for your presence, a bit of **fun**, and zero **hustle culture**. Your green light, your rules.
 
 **Languages:** [English](README.md) · [日本語](README.ja.md) · [中文](README.zh-CN.md) · [한국어](README.ko.md)
+
+> **Why “Green Light Hero”?** 绿灯侠 (lǜdēng xiá)—“the one who keeps the light green.” Your status stays green so you can breathe. No performative presence, just a little nudge when the system needs it.
 
 ---
 
@@ -39,7 +43,7 @@ That’s it. Works on company PCs as long as running .exe files is allowed.
 
 ### Get the .exe from Releases
 
-If the maintainer publishes [Releases](https://github.com/YOUR_USERNAME/SNS_status_active/releases), you can download **TeamsKeepAlive.exe** from there and run it without cloning the full repo.
+If the maintainer publishes [Releases](https://github.com/shen341/Teams_status_active/releases), you can download **TeamsKeepAlive.exe** from there and run it without cloning the full repo.
 
 ### Run the Python script (if you have Python)
 
@@ -118,8 +122,47 @@ Then run the script again, or rebuild the .exe with the steps above.
 
 ---
 
+## Creating a GitHub Release (for maintainers)
+
+If the Releases page shows 404, no release has been created yet. Follow these steps to publish **TeamsKeepAlive.exe** on GitHub Releases so users can download it without cloning the repo.
+
+### 1. Push your code and ensure the repo exists
+
+- Repository URL: **https://github.com/shen341/Teams_status_active**
+- If the repo name is still `SNS_status_active`, rename it: **Settings → General → Repository name** → change to `Teams_status_active` → **Rename**.
+- Ensure `dist\TeamsKeepAlive.exe` is committed and pushed (or you will upload it in step 4).
+
+### 2. Open the Releases section
+
+- On the repo page, click **Releases** (right-hand side), or go to:  
+  **https://github.com/shen341/Teams_status_active/releases**
+- Click **Create a new release**.
+
+### 3. Fill in the release details
+
+- **Choose a tag:** Click **Choose tag**, type a version (e.g. `v1.0.0`), select **Create new tag: v1.0.0 on publish**.
+- **Release title:** e.g. `v1.0.0 - 绿灯侠 (Green Light Hero)`.
+- **Description:** You can paste a short description and link to the README. Example:
+  ```text
+  Pre-built **TeamsKeepAlive.exe** for Windows. No Python required.
+  See [README](https://github.com/shen341/Teams_status_active#quick-start-recommended) for usage.
+  ```
+
+### 4. Attach the .exe and publish
+
+- In **Attach binaries**, drag and drop **TeamsKeepAlive.exe** (from your local `dist` folder), or click to select the file.
+- Leave **Set as the latest release** checked if this is your first release.
+- Click **Publish release**.
+
+After that, **https://github.com/shen341/Teams_status_active/releases** will show the release and users can download the .exe from there.
+
+### Updating a release later
+
+- Go to **Releases** → click the existing release (e.g. v1.0.0) → **Edit**.
+- Upload a new .exe or add release notes, then **Update release**.
+
+---
+
 ## License
 
 This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for the full text.
-
-> **Note for repo owners:** Replace `YOUR_USERNAME` in the Releases link with your GitHub username (or your org name) so the link points to your repository’s Releases page.

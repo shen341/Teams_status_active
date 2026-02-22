@@ -1,8 +1,12 @@
-# Teams キープアライブ
+# 绿灯侠（グリーンライトヒーロー）
 
-Microsoft Teams が、約5分の無操作で **Away（離席・Be right back）** になるのを防ぐ軽量ツールです。**OS レベルのマウス移動**で「最後の入力」を更新し、Teams にアクティブと認識させます。
+**ステータスをずっと「緑」のままに。** 約5分の無操作で Teams が **Away（離席・Be right back）** になるのを防ぐ、軽量ツールです。
+
+若手社会人のための、ちょっとした**守り**と**ユーモア**。過度な「見せかけ在席」競争はナシ。あなたの緑ランプは、あなたのペースで。
 
 **言語:** [English](README.md) · [日本語](README.ja.md) · [中文](README.zh-CN.md) · [한국어](README.ko.md)
+
+> **「绿灯侠」って？** 中国語で「緑のランプを守るヒーロー」。ステータスを緑のままにして、肩の力を抜いて働けるようにする、ちょっとした味方です。見せかけの在席じゃなく、必要なときだけそっと押してくれるだけ。
 
 ---
 
@@ -39,7 +43,7 @@ Microsoft Teams が、約5分の無操作で **Away（離席・Be right back）*
 
 ### Releases から .exe を取得する
 
-管理者が [Releases](https://github.com/YOUR_USERNAME/SNS_status_active/releases) を公開している場合は、そこから **TeamsKeepAlive.exe** をダウンロードし、リポジトリ全体をクローンせずに実行できます。
+管理者が [Releases](https://github.com/shen341/Teams_status_active/releases) を公開している場合は、そこから **TeamsKeepAlive.exe** をダウンロードし、リポジトリ全体をクローンせずに実行できます。
 
 ### Python スクリプトで実行する（Python がある場合）
 
@@ -115,6 +119,47 @@ INTERVAL_SEC = 4 * 60   # 4分。例: 2*60 = 2分、5*60 = 5分
 | `TeamsKeepAlive.spec` | PyInstaller 用 spec（単一 .exe） |
 | `build.bat` | .exe ビルド用バッチ |
 | `build.ps1` | .exe ビルド用 PowerShell |
+
+---
+
+## GitHub Release の作成と設定（管理者向け）
+
+Releases ページで 404 が出る場合は、まだリリースが作成されていません。以下の手順で **TeamsKeepAlive.exe** を GitHub Releases に公開し、ユーザーがリポジトリをクローンせずにダウンロードできるようにします。
+
+### 1. リポジトリの準備
+
+- リポジトリ URL: **https://github.com/shen341/Teams_status_active**
+- リポジトリ名がまだ `SNS_status_active` の場合は変更: **Settings → General → Repository name** を `Teams_status_active` に変更 → **Rename**。
+- `dist\TeamsKeepAlive.exe` をコミット・プッシュしておく（または手順 4 でアップロード）。
+
+### 2. Releases を開く
+
+- リポジトリページで **Releases**（右側）をクリックするか、  
+  **https://github.com/shen341/Teams_status_active/releases** にアクセス。
+- **Create a new release** をクリック。
+
+### 3. リリース情報を入力
+
+- **Choose a tag:** **Choose tag** をクリックし、バージョン（例: `v1.0.0`）を入力 → **Create new tag: v1.0.0 on publish** を選択。
+- **Release title:** 例: `v1.0.0 - 绿灯侠 (Green Light Hero)`。
+- **Description:** 簡単な説明や README へのリンクを記入。例:
+  ```text
+  Windows 用ビルド済み **TeamsKeepAlive.exe**。Python 不要。
+  使い方は [README](https://github.com/shen341/Teams_status_active#クイックスタート推奨) を参照。
+  ```
+
+### 4. .exe を添付して公開
+
+- **Attach binaries** に、ローカルの **dist** フォルダ内の **TeamsKeepAlive.exe** をドラッグ＆ドロップするか、クリックして選択。
+- 初回リリースの場合は **Set as the latest release** にチェックを入れたままにする。
+- **Publish release** をクリック。
+
+これで **https://github.com/shen341/Teams_status_active/releases** にリリースが表示され、ユーザーはここから .exe をダウンロードできます。
+
+### 既存リリースの更新
+
+- **Releases** → 該当リリース（例: v1.0.0）をクリック → **Edit**。
+- 新しい .exe をアップロードするか説明を編集 → **Update release**。
 
 ---
 
